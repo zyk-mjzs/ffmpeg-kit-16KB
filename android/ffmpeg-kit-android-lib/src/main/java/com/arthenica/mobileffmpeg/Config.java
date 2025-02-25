@@ -135,7 +135,7 @@ public class Config {
                  * THE TRY TO LOAD ARM-V7A-NEON FIRST. IF NOT LOAD DEFAULT ARM-V7A
                  */
 
-                System.loadLibrary("mobileffmpeg_armv7a_neon");
+                System.loadLibrary("ffmpegkit_armv7a_neon");
                 nativeMobileFFmpegLoaded = true;
                 AbiDetect.setArmV7aNeonLoaded(true);
             } catch (final UnsatisfiedLinkError e) {
@@ -144,7 +144,7 @@ public class Config {
         }
 
         if (!nativeMobileFFmpegLoaded) {
-            System.loadLibrary("mobileffmpeg");
+            System.loadLibrary("ffmpegkit");
         }
 
         Log.i(Config.TAG, String.format("Loaded mobile-ffmpeg-%s-%s-%s-%s.", getPackageName(), AbiDetect.getAbi(), getVersion(), getBuildDate()));

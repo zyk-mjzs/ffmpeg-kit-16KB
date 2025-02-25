@@ -30,7 +30,8 @@ public class AbiDetect {
     static {
         armV7aNeonLoaded = false;
 
-        System.loadLibrary("mobileffmpeg_abidetect");
+        //EDITED
+        System.loadLibrary("ffmpegkit_abidetect");
 
         /* ALL LIBRARIES LOADED AT STARTUP */
         Config.class.getName();
