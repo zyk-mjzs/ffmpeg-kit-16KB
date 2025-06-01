@@ -1,6 +1,9 @@
 # 16KB Page Size Update
 This fork only aims to make ffmpeg-kit compatible with new android versions (API 35) which request all binaries to be rebuilt.
 Google request developers to build new with new r27 and r28 ndk but ffmpeg-kit has its own NDK compatibility table which supports only upto r25.</p>
+<i>Edit: As original devs said, master branch has been tested upto NDK r27.</i>
+
+</p>
 Lucky for us, there is a version of ndk r23 and r25 in CI which supports 16KB page sizes too.
 make sure to download this ndk version and compile ffmpeg-kit with this ndk only.<br/>
 NDK : <a href="https://ci.android.com/builds/branches/aosp-ndk-release-r23/grid">R23</a> <a href="https://ci.android.com/builds/branches/aosp-ndk-r25-release/grid">R25</a>
