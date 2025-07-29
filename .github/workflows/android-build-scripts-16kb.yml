@@ -27,7 +27,7 @@ on:
 
 jobs:
   build-main-on-linux:
-    name: android main on linux (ndk-r27b)
+    name: android main on linux (ndk-r25-16k)
     runs-on: ubuntu-22.04
     defaults:
       run:
@@ -41,9 +41,9 @@ jobs:
           java-version: '17'
       - name: prerequisites
         run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --uninstall "cmake;3.10.2.4988404" "cmake;3.18.1"
-      - name: set up android ndk r27b
+      - name: set up android ndk r25 (16k support)
         run: |
-          curl -s "https://dl.google.com/android/repository/android-ndk-r27b-linux.zip" -o ndk.zip
+          curl -L -s "https://ci.android.com/builds/submitted/12161346/linux/latest/android-ndk-12161346-linux-x86_64.zip" -o ndk.zip
           unzip -q -o ndk.zip -d .ndk
           echo "ANDROID_NDK_ROOT=$PWD/.ndk/$(ls .ndk)" >> $GITHUB_ENV
       - name: run the build script
@@ -55,11 +55,11 @@ jobs:
             echo "Error: ffmpeg-kit.aar not found in prebuilt directory."
             exit 1
           fi
-          mv "$AAR_PATH" "ffmpeg-kit-main-ndk-r27b.aar"
+          mv "$AAR_PATH" "ffmpeg-kit-main-ndk-r25-16k.aar"
       - uses: actions/upload-artifact@v4
         with:
           name: ffmpeg-kit-main-aar
-          path: ffmpeg-kit-main-ndk-r27b.aar
+          path: ffmpeg-kit-main-ndk-r25-16k.aar
           if-no-files-found: error
       - name: print build logs
         if: ${{ always() }}
@@ -71,7 +71,7 @@ jobs:
 ---
 
   build-lts-on-linux:
-    name: android lts on linux (ndk-r27b)
+    name: android lts on linux (ndk-r25-16k)
     runs-on: ubuntu-22.04
     defaults:
       run:
@@ -85,9 +85,9 @@ jobs:
           java-version: '17'
       - name: prerequisites
         run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --uninstall "cmake;3.10.2.4988404" "cmake;3.18.1"
-      - name: set up android ndk r27b
+      - name: set up android ndk r25 (16k support)
         run: |
-          curl -s "https://dl.google.com/android/repository/android-ndk-r27b-linux.zip" -o ndk.zip
+          curl -L -s "https://ci.android.com/builds/submitted/12161346/linux/latest/android-ndk-12161346-linux-x86_64.zip" -o ndk.zip
           unzip -q -o ndk.zip -d .ndk
           echo "ANDROID_NDK_ROOT=$PWD/.ndk/$(ls .ndk)" >> $GITHUB_ENV
       - name: run the build script
@@ -99,11 +99,11 @@ jobs:
             echo "Error: ffmpeg-kit.aar not found in prebuilt directory."
             exit 1
           fi
-          mv "$AAR_PATH" "ffmpeg-kit-lts-ndk-r27b.aar"
+          mv "$AAR_PATH" "ffmpeg-kit-lts-ndk-r25-16k.aar"
       - uses: actions/upload-artifact@v4
         with:
           name: ffmpeg-kit-lts-aar
-          path: ffmpeg-kit-lts-ndk-r27b.aar
+          path: ffmpeg-kit-lts-ndk-r25-16k.aar
           if-no-files-found: error
       - name: print build logs
         if: ${{ always() }}
@@ -116,10 +116,8 @@ jobs:
 
   create-release:
     name: create github release
-    # This job depends on the successful completion of both Linux build jobs
     needs: [build-main-on-linux, build-lts-on-linux]
     runs-on: ubuntu-latest
-    # Condition: Only run this job when the workflow is manually triggered
     if: github.event_name == 'workflow_dispatch'
     permissions:
       contents: write # Required to create a release
@@ -137,8 +135,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG_NAME }}
-          name: "Android AARs (NDK r27b) - ${{ env.TAG_NAME }}"
-          body: "Automated release of Android AAR files from Linux builds using NDK r27b."
+          name: "Android AARs (NDK r25-16k) - ${{ env.TAG_NAME }}"
+          body: "Automated release of Android AAR files from Linux builds using NDK r25 with 16kB page size support."
           prerelease: true
-          # Use a glob pattern to upload all downloaded .aar files
           files: aar-artifacts/*/*.aar
