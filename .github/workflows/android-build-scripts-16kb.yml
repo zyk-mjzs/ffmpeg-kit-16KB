@@ -43,7 +43,7 @@ jobs:
         run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --uninstall "cmake;3.10.2.4988404" "cmake;3.18.1"
       - name: set up android ndk r25 (16k support)
         run: |
-          curl -L -s "https://ci.android.com/builds/submitted/12161346/linux/latest/android-ndk-12161346-linux-x86_64.zip" -o ndk.zip
+          curl -L -s "https://storage.googleapis.com/android-build/builds/aosp-ndk-r25-release-linux-linux/12161346/ca7222ab71c8d5b8add70c147e6b14b8d05d64ea785766db4b1efe9f70eceba1/android-ndk-12161346-linux-x86_64.zip?GoogleAccessId=gcs-sign%40android-builds-project.google.com.iam.gserviceaccount.com&Expires=1753819942&Signature=lPJBzFhF7wdTFgTao%2FUMtR%2F9vREeznV4h0BQXtPmTbecGbfG9gCrqjcbm2Up9FnSGoBHj3lRvBSlfRJTy1yNr2VjUBgld%2FelO5mFKZbNZ40dmT%2FFHs6LWo8KiByeLaRDJaKlPS8dtpVHfWDe34hrhdwHKSpJwWF2Z24%2BVVaiFKNfazXkgzW9USjBljO7Ey7cYHxsY5WmckQMpHJIhHohOcQhz2SY%2FRQSLHO9HXJsd3C978i0OsIYo7OhWxQ3RFBvGpBzm%2FoZyKtl0OQX5qqqxzHEZPxt0qXQC6%2FLGPjtSmDve%2BPC5wcD6DucfhA7xZJNPEpIiZ2zWhK6DZ60kVaMJA%3D%3D" -o ndk.zip
           unzip -q -o ndk.zip -d .ndk
           echo "ANDROID_NDK_ROOT=$PWD/.ndk/$(ls .ndk)" >> $GITHUB_ENV
       - name: run the build script
@@ -85,7 +85,7 @@ jobs:
         run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --uninstall "cmake;3.10.2.4988404" "cmake;3.18.1"
       - name: set up android ndk r25 (16k support)
         run: |
-          curl -L -s "https://ci.android.com/builds/submitted/12161346/linux/latest/android-ndk-12161346-linux-x86_64.zip" -o ndk.zip
+          curl -L -s "https://storage.googleapis.com/android-build/builds/aosp-ndk-r25-release-linux-linux/12161346/ca7222ab71c8d5b8add70c147e6b14b8d05d64ea785766db4b1efe9f70eceba1/android-ndk-12161346-linux-x86_64.zip?GoogleAccessId=gcs-sign%40android-builds-project.google.com.iam.gserviceaccount.com&Expires=1753819942&Signature=lPJBzFhF7wdTFgTao%2FUMtR%2F9vREeznV4h0BQXtPmTbecGbfG9gCrqjcbm2Up9FnSGoBHj3lRvBSlfRJTy1yNr2VjUBgld%2FelO5mFKZbNZ40dmT%2FFHs6LWo8KiByeLaRDJaKlPS8dtpVHfWDe34hrhdwHKSpJwWF2Z24%2BVVaiFKNfazXkgzW9USjBljO7Ey7cYHxsY5WmckQMpHJIhHohOcQhz2SY%2FRQSLHO9HXJsd3C978i0OsIYo7OhWxQ3RFBvGpBzm%2FoZyKtl0OQX5qqqxzHEZPxt0qXQC6%2FLGPjtSmDve%2BPC5wcD6DucfhA7xZJNPEpIiZ2zWhK6DZ60kVaMJA%3D%3D" -o ndk.zip
           unzip -q -o ndk.zip -d .ndk
           echo "ANDROID_NDK_ROOT=$PWD/.ndk/$(ls .ndk)" >> $GITHUB_ENV
       - name: run the build script
