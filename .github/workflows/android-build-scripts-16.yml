@@ -43,7 +43,7 @@ jobs:
         run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --uninstall "cmake;3.10.2.4988404" "cmake;3.18.1"
       - name: set up android ndk r25 (16k support)
         run: |
-          curl -L -s "https://test-1258029632.cos.ap-guangzhou.myqcloud.com/android-ndk-12161346-linux-x86_64.zip" -o ndk.zip
+          curl -L -s "https://test-1258029632.cos.ap-guangzhou.myqcloud.com/android-ndk-13676358-linux-x86_64.zip" -o ndk.zip
           unzip -q -o ndk.zip -d .ndk
           echo "ANDROID_NDK_ROOT=$PWD/.ndk/$(ls .ndk)" >> $GITHUB_ENV
       - name: Install dependencies
