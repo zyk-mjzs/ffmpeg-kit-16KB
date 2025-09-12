@@ -70,7 +70,7 @@ jobs:
         run: cat build.log
       - name: print ffbuild logs
         if: ${{ failure() }}
-        run: '[[ -f ./src/ffmpeg/ffbuild/config.log ]] && tail -50 ./src/ffmpeg/ffbuild/config.log'
+        run: '[[ -f ./src/ffmpeg/ffbuild/config.log ]] && cat ./src/ffmpeg/ffbuild/config.log'
 
   create-release:
     name: create github release
