@@ -1,4 +1,4 @@
-name: android 16kb build scripts
+name: android build scripts 16kB
 
 on:
   workflow_dispatch: # Allows manual triggering, which will create a release
@@ -43,11 +43,11 @@ jobs:
         run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --uninstall "cmake;3.10.2.4988404" "cmake;3.18.1"
       - name: set up android ndk r25 (16k support)
         run: |
-          curl -L -s "https://storage.googleapis.com/android-build/builds/aosp-ndk-release-r23-linux-linux/12186248/38c84da1ab0dd31ea40c857d2c9ee77450d9d71d76e60ac2ccd33d379babc534/android-ndk-12186248-linux-x86_64.zip?GoogleAccessId=gcs-sign%40android-builds-project.google.com.iam.gserviceaccount.com&Expires=1753821804&Signature=HKQJTqNSRtaAveX4C8sOom1Yc6SF3FCDSMcdz2HPuBMvAhspFd694g%2FXo9%2FFDBoi9otnp4FhTIi272AhCdf4iL6eybaZVhf9y1GgtxTrNhXH3%2BCMcoAUfkmhZzFX6N7yvvohi8ikfay6RVF7y3%2BguKLOA%2B4QOr4CTSy8FnSFbfWMB2m0%2BfB%2BE9QGjc4QjWSXJcMbFn2vhcDGEOQgJepXmuWRzUqdmZF%2FWNpuiCcMRsSFroiqmZcMZy2uPmrxD9BkBlFlMMjWXx1BRYJsd5vSEEx7Q5DyD%2FNwIbsftV2tDMjTQbUucnQ8oUo2VLcOCKeRjGVymGz66esLaP6AJu2bGg%3D%3D" -o ndk.zip
+          curl -L -s "https://ci.android.com/builds/submitted/12161346/linux/latest/android-ndk-12161346-linux-x86_64.zip" -o ndk.zip
           unzip -q -o ndk.zip -d .ndk
           echo "ANDROID_NDK_ROOT=$PWD/.ndk/$(ls .ndk)" >> $GITHUB_ENV
       - name: run the build script
-        run: ./android.sh -d --enable-android-media-codec --enable-android-zlib --disable-arm-v7a
+        run: ./android.sh -d --full --enable-gpl --disable-arm-v7a
       - name: prepare and upload main aar
         run: |
           AAR_PATH=$(find prebuilt -type f -name 'ffmpeg-kit.aar')
@@ -85,11 +85,11 @@ jobs:
         run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --uninstall "cmake;3.10.2.4988404" "cmake;3.18.1"
       - name: set up android ndk r25 (16k support)
         run: |
-          curl -L -s "https://storage.googleapis.com/android-build/builds/aosp-ndk-release-r23-linux-linux/12186248/38c84da1ab0dd31ea40c857d2c9ee77450d9d71d76e60ac2ccd33d379babc534/android-ndk-12186248-linux-x86_64.zip?GoogleAccessId=gcs-sign%40android-builds-project.google.com.iam.gserviceaccount.com&Expires=1753821804&Signature=HKQJTqNSRtaAveX4C8sOom1Yc6SF3FCDSMcdz2HPuBMvAhspFd694g%2FXo9%2FFDBoi9otnp4FhTIi272AhCdf4iL6eybaZVhf9y1GgtxTrNhXH3%2BCMcoAUfkmhZzFX6N7yvvohi8ikfay6RVF7y3%2BguKLOA%2B4QOr4CTSy8FnSFbfWMB2m0%2BfB%2BE9QGjc4QjWSXJcMbFn2vhcDGEOQgJepXmuWRzUqdmZF%2FWNpuiCcMRsSFroiqmZcMZy2uPmrxD9BkBlFlMMjWXx1BRYJsd5vSEEx7Q5DyD%2FNwIbsftV2tDMjTQbUucnQ8oUo2VLcOCKeRjGVymGz66esLaP6AJu2bGg%3D%3D" -o ndk.zip
+          curl -L -s "https://ci.android.com/builds/submitted/12161346/linux/latest/android-ndk-12161346-linux-x86_64.zip" -o ndk.zip
           unzip -q -o ndk.zip -d .ndk
           echo "ANDROID_NDK_ROOT=$PWD/.ndk/$(ls .ndk)" >> $GITHUB_ENV
       - name: run the build script
-        run: ./android.sh -d --lts --enable-android-media-codec --enable-android-zlib
+        run: ./android.sh -d --lts --full --enable-gpl --disable-arm-v7a
       - name: prepare and upload lts aar
         run: |
           AAR_PATH=$(find prebuilt -type f -name 'ffmpeg-kit.aar')
