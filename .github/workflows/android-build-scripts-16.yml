@@ -7,23 +7,23 @@ on:
       - development
       - main
     paths:
-      - '.github/workflows/android-build-scripts-16.yml'
-      - 'android/**'
-      - '!android/README.md'
-      - 'scripts/**'
-      - 'tools/**'
-      - 'android.sh'
+      - ".github/workflows/android-build-scripts-16.yml"
+      - "android/**"
+      - "!android/README.md"
+      - "scripts/**"
+      - "tools/**"
+      - "android.sh"
   pull_request:
     branches:
       - development
       - main
     paths:
-      - '.github/workflows/android-build-scripts-16.yml'
-      - 'android/**'
-      - '!android/README.md'
-      - 'scripts/**'
-      - 'tools/**'
-      - 'android.sh'
+      - ".github/workflows/android-build-scripts-16.yml"
+      - "android/**"
+      - "!android/README.md"
+      - "scripts/**"
+      - "tools/**"
+      - "android.sh"
 
 jobs:
   build-main-on-linux:
@@ -37,8 +37,8 @@ jobs:
       - name: set up adopt jdk 17
         uses: actions/setup-java@v3
         with:
-          distribution: 'adopt'
-          java-version: '17'
+          distribution: "adopt"
+          java-version: "17"
       - name: prerequisites
         run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --uninstall "cmake;3.10.2.4988404" "cmake;3.18.1"
       - name: set up android ndk r25 (16k support)
@@ -74,7 +74,41 @@ jobs:
           gtk-doc-tools \
           libtasn1-bin
       - name: run the build script
-        run: ./android.sh -d --full --enable-android-media-codec --enable-android-zlib --disable-arm-v7a-neon --disable-gnutls --disable-openssl
+        run: ./android.sh -d \
+        --disable-arm-v7a-neon \
+        --enable-android-media-codec \
+        --enable-android-zlib \
+        --enable-chromaprint \
+        --enable-dav1d \
+        --enable-fontconfig
+        --enable-freetype \
+        --enable-fribidi  \
+        --enable-gmp \
+        --enable-kvazaar \
+        --enable-lame \
+        --enable-libaom \
+        --enable-libass \
+        --enable-libiconv \
+        --enable-libilbc \
+        --enable-libtheora \
+        --enable-libvorbis \
+        --enable-libvpx \
+        --enable-libwebp \
+        --enable-libxml2 \
+        --enable-opencore-amr \
+        --enable-openh264 \
+        --enable-opus \
+        --enable-sdl \
+        --enable-shine \
+        --enable-snappy \
+        --enable-soxr  \
+        --enable-speex \
+        --enable-srt\
+        --enable-tesseract \
+        --enable-twolame  \
+        --enable-vo-amrwbenc \
+        --enable-zimg
+
       - name: prepare and upload main aar
         run: |
           AAR_PATH=$(find prebuilt -type f -name 'ffmpeg-kit.aar')
@@ -93,7 +127,7 @@ jobs:
         run: cat build.log
       - name: print ffbuild logs
         if: ${{ failure() }}
-        run: '[[ -f ./src/ffmpeg/ffbuild/config.log ]] && cat ./src/ffmpeg/ffbuild/config.log'
+        run: "[[ -f ./src/ffmpeg/ffbuild/config.log ]] && cat ./src/ffmpeg/ffbuild/config.log"
 
   create-release:
     name: create github release
