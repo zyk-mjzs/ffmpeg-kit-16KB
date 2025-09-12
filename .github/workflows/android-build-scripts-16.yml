@@ -74,7 +74,7 @@ jobs:
           gtk-doc-tools \
           libtasn1-bin
       - name: run the build script
-        run: ./android.sh -d --disable-arm-v7a-neon --enable-android-media-codec --enable-android-zlib --enable-chromaprint --enable-dav1d --enable-fontconfig --enable-freetype --enable-fribidi  --enable-gmp --enable-kvazaar --enable-lame --enable-libaom --enable-libass --enable-libiconv --enable-libilbc --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libxml2 --enable-opencore-amr --enable-openh264 --enable-opus --enable-sdl --enable-shine --enable-snappy --enable-soxr  --enable-speex --enable-tesseract --enable-twolame --enable-vo-amrwbenc --enable-zimg
+        run: ./android.sh -d --disable-arm-v7a-neon --enable-android-media-codec --enable-android-zlib --enable-chromaprint --enable-dav1d --enable-gmp --enable-kvazaar --enable-lame --enable-libaom --enable-libiconv --enable-libilbc --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libxml2 --enable-opencore-amr --enable-openh264 --enable-opus --enable-shine --enable-snappy --enable-soxr  --enable-speex --enable-twolame --enable-vo-amrwbenc --enable-zimg
 
       - name: prepare and upload main aar
         run: |
