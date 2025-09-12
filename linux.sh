@@ -126,7 +126,7 @@ if [[ -n ${BUILD_FULL} ]]; then
     if [ ${GPL_ENABLED} == "yes" ]; then
       enable_library "$(get_library_name $library)" 1
     else
-      if [[ $(is_gpl_licensed $library) -eq 1 ]]; then
+      if [[ $(is_gpl_licensed $library) -eq 0 ]]; then
         enable_library "$(get_library_name $library)" 1
       fi
     fi
