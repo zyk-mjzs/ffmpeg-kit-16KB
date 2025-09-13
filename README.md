@@ -1,3 +1,57 @@
+# Reference
+
+[FFmpeg-Kit + 16 KB Page Size In Android*🚀](https://proandroiddev.com/ffmpeg-kit-16-kb-page-size-in-android-d522adc5efa2)
+
+
+1. download android-ndk-12161346-linux-x86_64 from [Android CI](https://ci.android.com/builds/branches/aosp-ndk-r25-release/grid?legacy=1) And deploy to an address accessible from the external network.
+
+
+2. replace the downloaded NDK with the one downloaded from the link above. (.github/workflows/android-build-scripts-16.yml)
+
+
+3. use github action to build ffmpeg-kit.
+
+# Custom (i use)
+`.github/workflows/android-build-scripts-16.yml`
+
+--disable-arm-v7a-neon
+--enable-android-media-codec
+--enable-android-zlib
+--enable-chromaprint
+--enable-dav1d
+--enable-gmp
+--enable-kvazaar
+--enable-lame
+--enable-libaom
+--enable-libiconv
+--enable-libilbc
+--enable-libtheora
+--enable-libvorbis
+--enable-libvpx
+--enable-libwebp
+--enable-libxml2
+--enable-opencore-amr
+--enable-openh264
+--enable-opus
+--enable-shine
+--enable-snappy
+--enable-soxr
+--enable-speex
+--enable-twolame
+--enable-vo-amrwbenc
+--enable-zimg
+
+# Use in build.gradle
+```
+implementation(fileTree("libs") {
+    include("*.aar")
+})
+implementation("com.arthenica:smart-exception-java:0.2.1")
+
+// If using Maven to introduce AAR, then it should not require implementation("com.arthenica:smart-exception-java:0.2.1")
+```
+
+
 # 16KB Page Size Update
 This fork only aims to make ffmpeg-kit compatible with new android versions (API 35) which request all binaries to be rebuilt.
 Google request developers to build new with new r27 and r28 ndk but ffmpeg-kit has its own NDK compatibility table which supports only upto r25.</p>
@@ -10,6 +64,9 @@ NDK : <a href="https://ci.android.com/builds/branches/aosp-ndk-release-r23/grid"
 </p>
 You can find all details related to this update here. https://developer.android.com/guide/practices/page-sizes
 </br>
+</br>
+
+
 
 # FFmpegKit ![GitHub release](https://img.shields.io/badge/release-v6.0-blue.svg) ![Maven Central](https://img.shields.io/maven-central/v/com.arthenica/ffmpeg-kit-min) ![CocoaPods](https://img.shields.io/cocoapods/v/ffmpeg-kit-ios-min) ![pub](https://img.shields.io/pub/v/ffmpeg_kit_flutter.svg) ![npm](https://img.shields.io/npm/v/ffmpeg-kit-react-native.svg)
 
